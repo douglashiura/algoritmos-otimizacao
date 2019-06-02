@@ -1,4 +1,4 @@
-package teste.net.douglashiura.algoritmos.otimizacao;
+package net.douglashiura.algoritmos.otimizacao.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,6 @@ import java.util.Map;
 import java.util.Random;
 
 import net.douglashiura.algoritmos.otimizacao.Otimizador;
-import net.douglashiura.algoritmos.otimizacao.entidades.Aeroporto;
-import net.douglashiura.algoritmos.otimizacao.entidades.Agenda;
-import net.douglashiura.algoritmos.otimizacao.entidades.Pessoa;
-import net.douglashiura.algoritmos.otimizacao.entidades.Trecho;
-import net.douglashiura.algoritmos.otimizacao.entidades.Voo;
 
 public class AlgoritmoGenetico extends Otimizador {
 

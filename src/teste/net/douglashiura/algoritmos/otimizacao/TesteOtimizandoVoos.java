@@ -18,6 +18,7 @@ import net.douglashiura.algoritmos.otimizacao.Otimizador;
 import net.douglashiura.algoritmos.otimizacao.TemperaSimulada;
 import net.douglashiura.algoritmos.otimizacao.entidades.Aeroporto;
 import net.douglashiura.algoritmos.otimizacao.entidades.Agenda;
+import net.douglashiura.algoritmos.otimizacao.entidades.AlgoritmoGenetico;
 import net.douglashiura.algoritmos.otimizacao.entidades.Pessoa;
 import net.douglashiura.algoritmos.otimizacao.entidades.Trecho;
 import net.douglashiura.algoritmos.otimizacao.entidades.Voo;
