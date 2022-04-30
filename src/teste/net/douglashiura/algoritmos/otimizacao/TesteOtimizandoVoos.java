@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +13,14 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import net.douglashiura.algoritmos.otimizacao.AlgoritmoGenetico;
 import net.douglashiura.algoritmos.otimizacao.BuscaAleatoria;
 import net.douglashiura.algoritmos.otimizacao.BuscaSubidaDaEncosta;
+import net.douglashiura.algoritmos.otimizacao.BuscaTabu;
 import net.douglashiura.algoritmos.otimizacao.Otimizador;
 import net.douglashiura.algoritmos.otimizacao.TemperaSimulada;
 import net.douglashiura.algoritmos.otimizacao.entidades.Aeroporto;
 import net.douglashiura.algoritmos.otimizacao.entidades.Agenda;
-import net.douglashiura.algoritmos.otimizacao.entidades.AlgoritmoGenetico;
 import net.douglashiura.algoritmos.otimizacao.entidades.Pessoa;
 import net.douglashiura.algoritmos.otimizacao.entidades.Trecho;
 import net.douglashiura.algoritmos.otimizacao.entidades.Voo;
@@ -58,6 +60,15 @@ public class TesteOtimizandoVoos {
 	void voosIguais() {
 		assertEquals(new Voo(new Aeroporto("BR"), new Aeroporto("CH")),
 				new Voo(new Aeroporto("BR"), new Aeroporto("CH")));
+	}
+
+	@Test
+	public void listaDeAgendaIguais() throws Exception {
+		List<Agenda> a = new ArrayList<Agenda>();
+		List<Agenda> b = new ArrayList<Agenda>();
+		a.add(new Agenda(amanda, new Aeroporto("POA"), destino));
+		b.add(new Agenda(amanda, new Aeroporto("POA"), destino));
+		assertEquals(a, b);
 	}
 
 	@Test
@@ -121,10 +132,7 @@ public class TesteOtimizandoVoos {
 		assertEquals(pedro, solucao.get(4).getPessoa());
 		assertEquals(pricila, solucao.get(5).getPessoa());
 	}
-	
-	
-	
-	
+
 	@Test
 	void temperaSimulada() throws Exception {
 		Otimizador buscaAleatoria = new TemperaSimulada(destino, voos, pessoas);
@@ -155,8 +163,38 @@ public class TesteOtimizandoVoos {
 		assertEquals(pedro, solucao.get(4).getPessoa());
 		assertEquals(pricila, solucao.get(5).getPessoa());
 	}
-	
-	
+
+	@Test
+	void buscaTabu() throws Exception {
+		Otimizador buscaAleatoria = new BuscaTabu(destino, voos, pessoas);
+		List<Agenda> solucao = buscaAleatoria.executar();
+		buscaAleatoria.imprimirSolucao();
+		Agenda umaSolucao = solucao.get(0);
+		Trecho ida = umaSolucao.getIda();
+		Trecho volta = umaSolucao.getVolta();
+
+		assertTrue(0 < buscaAleatoria.custo(solucao));
+		assertEquals(6, solucao.size());
+		assertEquals(destino, ida.getDestino());
+		assertEquals(new Aeroporto("CWB"), ida.getOrigem());
+		assertNotNull(ida.getSaida());
+		assertNotNull(ida.getChegada());
+		assertNotNull(ida.getValor());
+
+		assertEquals(destino, volta.getOrigem());
+		assertEquals(new Aeroporto("CWB"), volta.getDestino());
+		assertNotNull(volta.getSaida());
+		assertNotNull(volta.getChegada());
+		assertNotNull(volta.getValor());
+
+		assertEquals(amanda, solucao.get(0).getPessoa());
+		assertEquals(jessica, solucao.get(1).getPessoa());
+		assertEquals(marcos, solucao.get(2).getPessoa());
+		assertEquals(paulo, solucao.get(3).getPessoa());
+		assertEquals(pedro, solucao.get(4).getPessoa());
+		assertEquals(pricila, solucao.get(5).getPessoa());
+	}
+
 	@Test
 	void genetico() throws Exception {
 		Otimizador buscaAleatoria = new AlgoritmoGenetico(destino, voos, pessoas);
@@ -186,10 +224,6 @@ public class TesteOtimizandoVoos {
 		assertEquals(paulo, solucao.get(3).getPessoa());
 		assertEquals(pedro, solucao.get(4).getPessoa());
 		assertEquals(pricila, solucao.get(5).getPessoa());
-	}	
-	
-	
-	
-	
+	}
 
 }

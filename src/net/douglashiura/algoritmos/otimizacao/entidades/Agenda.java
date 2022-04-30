@@ -1,5 +1,7 @@
 package net.douglashiura.algoritmos.otimizacao.entidades;
 
+import java.util.Objects;
+
 public class Agenda {
 
 	private Pessoa pessoa;
@@ -13,6 +15,28 @@ public class Agenda {
 		this.origem = origem;
 		this.destino = destino;
 	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(destino, ida, origem, pessoa, volta);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Agenda other = (Agenda) obj;
+		return Objects.equals(destino, other.destino) && Objects.equals(ida, other.ida)
+				&& Objects.equals(origem, other.origem) && Objects.equals(pessoa, other.pessoa)
+				&& Objects.equals(volta, other.volta);
+	}
+
 
 	public Pessoa getPessoa() {
 		return pessoa;

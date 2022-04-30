@@ -1,6 +1,7 @@
 package net.douglashiura.algoritmos.otimizacao.entidades;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Trecho {
 
@@ -14,6 +15,24 @@ public class Trecho {
 		this.saida = saida;
 		this.chegada = chegada;
 		valor = preco;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(chegada, saida, valor, voo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trecho other = (Trecho) obj;
+		return Objects.equals(chegada, other.chegada) && Objects.equals(saida, other.saida)
+				&& Objects.equals(valor, other.valor) && Objects.equals(voo, other.voo);
 	}
 
 	public LocalTime getSaida() {
